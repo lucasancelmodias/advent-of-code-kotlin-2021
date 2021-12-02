@@ -1,17 +1,25 @@
 fun main() {
-    fun part1(input: List<String>): Int {
-        return input.size
+    fun part1(input: List<Int>): Int {
+        var counter = 0
+        for( index in 1 until input.size){
+            if(input[index] > input[index - 1]) counter++
+        }
+        return counter
     }
 
-    fun part2(input: List<String>): Int {
-        return input.size
+    fun part2(input: List<Int>): Int {
+        var counter = -1
+        var currentSum = Int.MIN_VALUE
+        for(index in 0 until (input.size - 2)){
+            val sum = input[index] + input[index + 1] +  input[index + 2]
+            if (sum > currentSum) ++counter
+            currentSum = sum
+        }
+
+        return counter
     }
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day01_test")
-    check(part1(testInput) == 1)
-
-    val input = readInput("Day01")
+    val input = readInput("input")
     println(part1(input))
     println(part2(input))
 }
