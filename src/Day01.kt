@@ -12,14 +12,14 @@ fun main() {
         var currentSum = Int.MIN_VALUE
         for(index in 0 until (input.size - 2)){
             val sum = input[index] + input[index + 1] +  input[index + 2]
-            if (sum > currentSum) ++counter
+            if (sum > currentSum) counter++
             currentSum = sum
         }
 
         return counter
     }
 
-    val input = readInput("input")
+    val input = readInput("input").map{ value -> value.toInt()}
     println(part1(input))
     println(part2(input))
 }
