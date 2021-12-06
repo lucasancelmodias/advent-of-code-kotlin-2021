@@ -14,13 +14,13 @@ fun main(){
         points.add(Pair(pointFrom,pointTo))
     }
 
-    val t = measureTimeMillis { part1(points) }
-    val t2 = measureTimeMillis { part2(points) }
+    val t = measureTimeMillis { solve(points, false) }
+    val t2 = measureTimeMillis { solve(points, true) }
     println("Time part 1: ${t.milliseconds} \nTime part 2 ${t2.milliseconds}")
 }
 
-fun part1(
-    points: ArrayList<Pair<Point, Point>>) {
+fun solve(
+    points: ArrayList<Pair<Point, Point>>, part2:Boolean) {
     val intersections = hashMapOf<Point, Int>()
     for (point in points) {
 
@@ -43,43 +43,7 @@ fun part1(
             for (i in yMin..yMax) {
                 intersections.merge(Point(from.x, i), 1, Integer::sum)
             }
-        }
-    }
-
-    var count = 0
-    for(point in intersections){
-        if(point.value > 1){
-            count++
-        }
-    }
-    println("Part 1 Count $count")
-}
-
-fun part2(
-    points: ArrayList<Pair<Point, Point>>) {
-    val intersections = hashMapOf<Point, Int>()
-    for (point in points) {
-
-        val from = point.first
-        val to = point.second
-
-        if (from.y == to.y) {
-
-            val xMin = from.x.coerceAtMost(to.x)
-            val xMax = from.x.coerceAtLeast(to.x)
-
-            for (i in xMin..xMax) {
-                intersections.merge(Point(i, from.y), 1, Integer::sum)
-            }
-
-        } else if (from.x == to.x) {
-            val yMin = from.y.coerceAtMost(to.y)
-            val yMax = from.y.coerceAtLeast(to.y)
-
-            for (i in yMin..yMax) {
-                intersections.merge(Point(from.x, i), 1, Integer::sum)
-            }
-        }else{
+        }else if(part2){
             val xDir = if(to.x - from.x > 0) 1 else - 1
             val yDir = if(to.y - from.y > 0) 1 else - 1
             val absVal = abs(to.x - from.x)
@@ -89,32 +53,7 @@ fun part2(
         }
     }
 
-    var count = 0
-    for(point in intersections){
-        if(point.value > 1){
-            count++
-        }
-    }
-    println("Part 2 Count $count")
+    println("Count ${intersections.filter { it.value > 1 }.size}")
 }
 
-
-class Point(var x: Int, var y: Int){
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-        other as Point
-        return x == other.x && y == other.y
-    }
-
-    override fun hashCode(): Int {
-        var result = x
-        result = 31 * result + y
-        return result
-    }
-
-    override fun toString(): String {
-        return "Point(x=$x, y=$y)"
-    }
-
-}
+data class Point(var x: Int, var y: Int)
