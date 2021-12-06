@@ -1,14 +1,21 @@
+import kotlin.system.measureTimeMillis
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.measureTimedValue
+
 fun main(){
 
 
-    val lines = readInput("inputday4")
+    val lines = readInput("ijp4lu")
     val values = lines[0].split(",").map{v -> v.toInt()}
     val l = lines.subList(2, lines.size).map { s -> s.trim() }.filter{it.isNotEmpty()}
 
     val tables = createTable(l)
 
-    part1(values, tables)
-    part2(values, tables.toMutableList())
+    val t = measureTimeMillis { part1(values, tables) }
+    val t2 = measureTimeMillis {   part2(values, tables.toMutableList()) }
+
+    println("Time part 1: ${t.milliseconds}")
+    println("Time part 2: ${t2.milliseconds}")
 
 }
 
@@ -30,7 +37,7 @@ fun part1(values: List<Int>, tables: MutableList<Table>) {
         }
     }
 
-    println("Winner Number $winnerNumber")
+    println("First Winner Number $winnerNumber")
     println("Sum ${winnerTable.sum()}")
     println("Final Value Part 1 ${winnerNumber * winnerTable.sum()}")
     println("#########################")
@@ -48,13 +55,14 @@ fun part2(numbers: List<Int>, boards: MutableList<Table>) {
             null.also { b = losingBoards as MutableList<Table> }
         }
     }
-    println("Final $finalNumber")
+    println("Last Winner Number $finalNumber")
+    println("Sum ${lastWinningBoard.sum()}")
     println("Last Winner Part 2 ${lastWinningBoard.sum() * finalNumber}")
 }
 
 
 fun createTable(lines: List<String>): MutableList<Table>{
-    var count = 1
+
     val tables = mutableListOf<Table>()
 
     for(index in 4..lines.size + 1 step 5 ){
@@ -69,7 +77,7 @@ fun createTable(lines: List<String>): MutableList<Table>{
         }
         val table = Table(values)
         tables.add(table)
-        count++
+
     }
 
     return tables
@@ -93,7 +101,7 @@ data class Table(var values: MutableList<List<Cell>>){
     fun markNumber(number: Int) = apply{
         values.map{ item ->
             item.map{ pair ->
-                //println("Pair $pair")
+
                 if(!pair.marked) pair.marked = (pair.value == number)}}
     }
 
