@@ -13,10 +13,10 @@ fun main(){
         phases[number] += BigInteger.ONE
     }
 
-    val t80 = measureTimeMillis{ solve(80, phases)}.also { println("Time to compute: ${it.milliseconds}") }
-    val t256 = measureTimeMillis{ solve(256, phases)}.also { println("Time to compute: ${it.milliseconds}") }
-    val t80Rotate = measureTimeMillis{ solveRotate(80, phases)}.also { println("Time to compute: ${it.milliseconds}") }
-    val t256Rotate = measureTimeMillis{ solveRotate(256, phases)}.also { println("Time to compute: ${it.milliseconds}") }
+    measureTimeMillis{ solve(80, phases)}.also { println("Time to compute: ${it.milliseconds}") }
+    measureTimeMillis{ solve(256, phases)}.also { println("Time to compute: ${it.milliseconds}") }
+    measureTimeMillis{ solveRotate(80, phases)}.also { println("Time to compute: ${it.milliseconds}") }
+    measureTimeMillis{ solveRotate(256, phases)}.also { println("Time to compute: ${it.milliseconds}") }
 
 }
 
