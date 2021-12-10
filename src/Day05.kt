@@ -8,8 +8,8 @@ fun main(){
     val points = ArrayList<Pair<Point,Point>>()
     readInput("inputday5").forEach { line ->
         val parse =  re.matchEntire(line)
-        val pointFrom = Point(parse?.groups?.get(1)?.value?.toInt()!!, parse?.groups?.get(2)?.value?.toInt()!!)
-        val pointTo = Point(parse?.groups?.get(3)?.value?.toInt()!!, parse?.groups?.get(4)?.value?.toInt()!!)
+        val pointFrom = Point(parse?.groups?.get(1)?.value?.toInt()!!, parse.groups.get(2)?.value?.toInt()!!)
+        val pointTo = Point(parse.groups.get(3)?.value?.toInt()!!, parse.groups.get(4)?.value?.toInt()!!)
 
         points.add(Pair(pointFrom,pointTo))
     }
