@@ -1,7 +1,7 @@
 fun main() {
     fun part1(input: List<Int>): Int {
         var counter = 0
-        for( index in 1 until input.size){
+        for( index in 1 until input.size ){
             if(input[index] > input[index - 1]) counter++
         }
         return counter
